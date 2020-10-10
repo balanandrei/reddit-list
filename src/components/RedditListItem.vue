@@ -9,9 +9,11 @@
           <a class="PostItem__Title" :href="url + post.data.permalink">
             <p>{{ post.data.title }}</p>
           </a>
-          <a class="PostItem__Subreddit" :href="url + '/' + post.data.subreddit_name_prefixed">{{
-            post.data.subreddit_name_prefixed
-          }}</a>
+          <a
+            class="PostItem__Subreddit"
+            :href="url + '/' + post.data.subreddit_name_prefixed"
+            >{{ post.data.subreddit_name_prefixed }}</a
+          >
         </p>
       </div>
     </article>
@@ -36,8 +38,13 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: rgb(148,143,232);
-    background: linear-gradient(90deg, rgba(148,143,232,1) 0%, rgba(173,173,204,1) 35%, rgba(0,212,255,1) 100%);
+    background: rgb(148, 143, 232);
+    background: linear-gradient(
+      90deg,
+      rgba(148, 143, 232, 1) 0%,
+      rgba(173, 173, 204, 1) 35%,
+      rgba(0, 212, 255, 1) 100%
+    );
   }
 
   &__Text {
@@ -45,7 +52,8 @@ export default {
     flex-direction: column;
   }
 
-  &__Title, &__Subreddit {
+  &__Title,
+  &__Subreddit {
     margin: 0 20px;
   }
 }
