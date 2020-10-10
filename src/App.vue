@@ -1,20 +1,18 @@
 <template>
   <div id="app">
     <h2>Reddit feed</h2>
-    <section class="Posts">
-      <RedditListItem :posts="posts" :url="url"/>
-    </section>
+      <RedditListContainer :posts="posts" :url="url" />
     <div ref="observeScroll"></div>
     <button @click="loadMore">Load more</button>
   </div>
 </template>
 
 <script>
-import RedditListItem from './components/RedditListItem.vue'
+import RedditListContainer from './components/RedditListContainer.vue'
 
 export default {
   name: "App",
-  components: { RedditListContainer ,RedditListItem },
+  components: { RedditListContainer },
   data() {
     return {
       posts: [],
