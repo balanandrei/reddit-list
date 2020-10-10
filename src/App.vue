@@ -1,24 +1,20 @@
 <template>
   <div id="app">
-    <div>Reddit</div>
-    <ol>
-      <li v-for="(post, i) in posts" :key="`${i}-${post.data.id}`">
-        <a :href="url + post.data.permalink">
-          <h3>{{ post.data.title }}</h3>
-          <img :src="post.data.thumbnail" />
-          <div>{{ post.data.subreddit_name_prefixed }}</div>
-        </a>
-      </li>
-    </ol>
+    <div>Reddit feed</div>
+    <section class="Posts">
+      <RedditListItem :posts="posts" />
+    </section>
     <div ref="observeScroll"></div>
     <button @click="loadMore">Load more</button>
   </div>
 </template>
 
 <script>
+import RedditListItem from './components/RedditListItem.vue'
 
 export default {
   name: "App",
+  components: "RedditListItem",
   data() {
     return {
       posts: [],
@@ -26,11 +22,14 @@ export default {
       url: "https:///www.reddit.com",
       subreddit: "aww",
       afterId: null,
+      test: null,
     };
   },
   methods: {
     getData() {
-      let apiUrl = `https://api.reddit.com/r/${this.subreddit}/top.json?limit=${this.limitNumber}&after=${this.afterId}`;
+      let apiUrl = `https://api.reddit.com/r/${this.subreddit}/top.json?limit=${
+        this.limitNumber
+      }${this.afterId ? "&after=" + this.afterId : ""}`;
 
       fetch(apiUrl)
         .then((response) => response.json())
@@ -46,7 +45,7 @@ export default {
         entries.forEach((entry) => {
           if (entry.intersectionRatio === 1) {
             observer.unobserve(entry.target);
-            console.log('intersectionRatio', entry.intersectionRatio);
+            console.log("intersectionRatio", entry.intersectionRatio);
             this.getData();
           }
         });
@@ -64,4 +63,25 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#app {
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.PostItem {
+  display: flex;
+  flex-direction: column;
+}
+</style>
