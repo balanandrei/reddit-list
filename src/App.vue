@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div>Reddit feed</div>
+    <h2>Reddit feed</h2>
     <section class="Posts">
-      <RedditListItem :posts="posts" />
+      <RedditListItem :posts="posts" :url="url"/>
     </section>
     <div ref="observeScroll"></div>
     <button @click="loadMore">Load more</button>
@@ -14,7 +14,7 @@ import RedditListItem from './components/RedditListItem.vue'
 
 export default {
   name: "App",
-  components: "RedditListItem",
+  components: { RedditListContainer ,RedditListItem },
   data() {
     return {
       posts: [],
@@ -38,6 +38,7 @@ export default {
           this.posts = [...this.posts, ...response.data.children];
         })
         .then(() => this.observeScroll());
+        
     },
 
     observeScroll() {
@@ -80,8 +81,11 @@ a {
   text-decoration: none;
 }
 
-.PostItem {
-  display: flex;
-  flex-direction: column;
+figure {
+  margin: 0;
+}
+
+img { 
+  display: block;
 }
 </style>

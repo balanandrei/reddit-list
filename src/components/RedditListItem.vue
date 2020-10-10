@@ -1,17 +1,19 @@
 <template>
   <div>
-    <article
-      class="PostItem"
-      v-for="(post, i) in posts"
-      :key="`${i}-${post.data.id}`"
-    >
-      <a :href="url + post.data.permalink">
-        <h3>{{ post.data.title }}</h3>
-        <img :src="post.data.thumbnail" />
-      </a>
-      <a :href="url + '/' + post.data.subreddit_name_prefixed">{{
-        post.data.subreddit_name_prefixed
-      }}</a>
+    <article class="PostItem" v-for="(post, i) in posts" :key="i">
+      <div class="PostItem__Content">
+        <figure>
+          <img :src="post.data.thumbnail" />
+        </figure>
+        <p class="PostItem__Text">
+          <a class="PostItem__Title" :href="url + post.data.permalink">
+            <p>{{ post.data.title }}</p>
+          </a>
+          <a class="PostItem__Subreddit" :href="url + '/' + post.data.subreddit_name_prefixed">{{
+            post.data.subreddit_name_prefixed
+          }}</a>
+        </p>
+      </div>
     </article>
   </div>
 </template>
@@ -19,24 +21,32 @@
 <script>
 export default {
   name: "RedditListItem",
-  props: ['posts'],
+  props: ["posts", "url"],
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.PostItem {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+
+  &__Content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgb(148,143,232);
+    background: linear-gradient(90deg, rgba(148,143,232,1) 0%, rgba(173,173,204,1) 35%, rgba(0,212,255,1) 100%);
+  }
+
+  &__Text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__Title, &__Subreddit {
+    margin: 0 20px;
+  }
 }
 </style>
