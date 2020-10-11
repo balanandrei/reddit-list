@@ -2,7 +2,7 @@
   <div>
     <article class="PostItem" v-for="(post, i) in posts" :key="i">
       <div class="PostItem__Content">
-        <figure>
+        <figure class="PostItem__Image">
           <img :src="post.data.thumbnail" />
         </figure>
         <p class="PostItem__Text">
@@ -47,9 +47,21 @@ export default {
     );
   }
 
+  &__Image {
+    border-right: 1px solid #000;
+  }
+
   &__Text {
     display: flex;
     flex-direction: column;
+  }
+
+  &__Title {
+    color: white;
+  }
+
+  &__Subreddit {
+    font-size: 12px;
   }
 
   &__Title,
